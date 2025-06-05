@@ -1,0 +1,13 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.appFrame{
+  min-width: 100svw;
+  max-width: 100svw;
+  min-height: 100svh;
+  max-height: 100svh;
+
+  background-color: aquamarine;
+}

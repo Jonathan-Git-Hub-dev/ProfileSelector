@@ -1,0 +1,48 @@
+.appModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+
+  min-width: 100svw;
+  max-width: 100svw;
+  min-height: 100svh;
+  max-height: 100svh;
+  
+  background-color: rgba(0,0,0,0.4);
+
+  /*display: flex;*/
+  justify-content: center;
+  align-items: center;
+}
+
+.modalInner{
+    min-width: 40svw;
+    max-width: 40svw;
+    min-height: 40svh;
+    max-height: 40svh;
+    background-color: azure;
+
+    overflow: scroll;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.modalInner::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+.circle{
+    position: absolute;
+    pointer-events: none;
+  z-index: 3; /* gray box will be above both green and black box */
+  
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+}
