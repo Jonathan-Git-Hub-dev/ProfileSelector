@@ -1,10 +1,12 @@
-.appModal {
+.modalBackground{
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 1; /* Sit on top may need to set higher if z 1 in use*/
+  
   left: 0;
   top: 0;
 
+  /*size of screen*/
   min-width: 100svw;
   max-width: 100svw;
   min-height: 100svh;
@@ -12,60 +14,7 @@
   
   background-color: rgba(0,0,0,0.4);
 
-  /*display: flex;*/
+  /*when modal is shown by turn dispaly to flex*/
   justify-content: center;
   align-items: center;
-}
-
-.modalContent{
-    min-width: min(80svw, 80svh);
-    max-width: min(80svw, 80svh);
-    min-height: min(80svw, 80svh);
-    max-height: min(80svw, 80svh);
-    background-color: azure;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.modalHoldImage{
-    min-width: min(60svw, 60svh);
-    max-width: min(60svw, 60svh);
-    min-height: min(60svw, 60svh);
-    max-height: min(60svw, 60svh);
-    
-    /*padding: 0px;
-    margin: 0px;
-    gap: 0px;
-    box-sizing: border-box;*/
-    background-color: red;
-
-    overflow: scroll;
-}
-.modalHoldImage::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
-}
-.circle{
-  position: absolute;
-  pointer-events: none;/*interact with the elements under*/
-  z-index: 3; /* gray box will be above both green and black box */
-  
-  min-width: min(40svw, 40svh);
-  max-width: min(40svw, 40svh);
-  min-height: min(40svw, 40svh);
-  max-height: min(40svw, 40svh);
-
-  margin-left: min(10svw, 10svh);
-  margin-top: min(10svw, 10svh);
-
-  box-sizing: border-box;
-  border-radius: 50%;
-  border-style: solid;
-  border-width: 2px;
-  border-color: blue;
-}
-.imageStyle{
-  vertical-align:bottom;
-  margin: min(10svw, 10svh);
 }

@@ -1,11 +1,10 @@
 import './CSS/App.css';
-import Test from "./Component/Test.js";
+import ProfilePicSelect from "./Component/ProfilePicSelect.js";
 
 export default function App() {
   return (
     <div className="appFrame">
-      <Test>
-      </Test>
+      <ProfilePicSelect />
     </div>
   );
 }
