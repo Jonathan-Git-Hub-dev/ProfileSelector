@@ -17,30 +17,43 @@
   align-items: center;
 }
 
-.modalInner{
-    min-width: 40svw;
-    max-width: 40svw;
-    min-height: 40svh;
-    max-height: 40svh;
+.modalContent{
+    min-width: min(80svw, 80svh);
+    max-width: min(80svw, 80svh);
+    min-height: min(80svw, 80svh);
+    max-height: min(80svw, 80svh);
     background-color: azure;
 
-    overflow: scroll;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .modalInner::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
 }
+.modalHoldImage{
+    min-width: min(60svw, 60svh);
+    max-width: min(60svw, 60svh);
+    min-height: min(60svw, 60svh);
+    max-height: min(60svw, 60svh);
+
+    overflow: scroll;
+}
 .circle{
-    position: absolute;
-    pointer-events: none;
+  position: absolute;
+  pointer-events: none;/*interact with the elements under*/
   z-index: 3; /* gray box will be above both green and black box */
   
-  width: 50px;
-  height: 50px;
+  min-width: min(40svw, 40svh);
+  max-width: min(40svw, 40svh);
+  min-height: min(40svw, 40svh);
+  max-height: min(40svw, 40svh);
+
+  margin-left: min(10svw, 10svh);
+  margin-top: min(10svw, 10svh);;
+
+  box-sizing: border-box;
   border-radius: 50%;
   border-style: solid;
   border-width: 2px;

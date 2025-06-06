@@ -1,6 +1,6 @@
 import {useRef} from 'react';
 import "../CSS/modal.css"
-import logo from '../im.avif';
+import logo from '../im2.jpg';
 
 export default function Test(props)
 {
@@ -30,14 +30,19 @@ export default function Test(props)
                 //console.log("modal stuff");
                 //console.log(e.target);
             }}>
-                <div className="modalInner" onMouseDown={(e)=>{
-                    e.preventDefault();
-                    console.log("down");
-                }}>
+                <div className="modalContent">
+                    <div className="modalHoldImage">
+                        <div className="circle"></div>
+                        <img src={logo}></img>
+                    </div>
+                    <button onClick={()=>{
+                        let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+                        let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+                        console.log("Height: " + vh + ",Width: " +vw);
+                    }}>Print size</button>
                     
-                    <img src={logo}></img>
-                    {/*props.children*/}
-                    <div className="circle"></div>
+
+
                 </div>
             </div>
         </>
