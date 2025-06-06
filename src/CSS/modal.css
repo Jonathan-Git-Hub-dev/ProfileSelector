@@ -29,16 +29,22 @@
     justify-content: center;
     align-items: center;
 }
-.modalInner::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
-}
 .modalHoldImage{
     min-width: min(60svw, 60svh);
     max-width: min(60svw, 60svh);
     min-height: min(60svw, 60svh);
     max-height: min(60svw, 60svh);
+    
+    /*padding: 0px;
+    margin: 0px;
+    gap: 0px;
+    box-sizing: border-box;*/
+    background-color: red;
 
     overflow: scroll;
+}
+.modalHoldImage::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
 }
 .circle{
   position: absolute;
@@ -51,11 +57,15 @@
   max-height: min(40svw, 40svh);
 
   margin-left: min(10svw, 10svh);
-  margin-top: min(10svw, 10svh);;
+  margin-top: min(10svw, 10svh);
 
   box-sizing: border-box;
   border-radius: 50%;
   border-style: solid;
   border-width: 2px;
   border-color: blue;
+}
+.imageStyle{
+  vertical-align:bottom;
+  margin: min(10svw, 10svh);
 }
