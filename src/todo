@@ -1,5 +1,8 @@
 focus on ceter of div when loaded 
 why to make image zoom
+    smallest = min size of image is size of circle
+    biggest = min size of image is 4 times circle
+
 php back end
 select image
 make suer image is teh right size

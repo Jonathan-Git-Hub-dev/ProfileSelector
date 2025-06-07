@@ -23,10 +23,9 @@ header("Access-Control-Allow-Origin: *");//can be changed to be more specific
     {*/
       if($fileError === 0)
       {
-
           //temporary save 
           //$newName = "../a1/src/ProfilePic/UsersProfilePic." . $fileActualExt;
-          $newName="./tmp.jpg";
+          $newName="./temp.jpg";
           if(!move_uploaded_file($fileTempName, $newName))
           {
             //finish("-1");
@@ -37,7 +36,7 @@ header("Access-Control-Allow-Origin: *");//can be changed to be more specific
           if(!$im)
           {
             //finish("-1");
-          }  
+          }
 
           //$s = min(imagesx($im), imagesy($im)); 
           $x = $_POST['x'];
