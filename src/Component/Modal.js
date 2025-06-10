@@ -3,20 +3,24 @@ import "../CSS/Modal.css"
 
 export default function Modal(props)
 {
-    const modalRef = useRef(null);
+    //const modalRef = useRef(null);
 
     function modalOn()
     {
-       props.func();//wait on this
-       modalRef.current.style.display = "flex";
+        props.func();
+       //modalRef.current.style.display = "flex";
     }
 
     function modalOff(e)
     {
-        //if clicking outside of the modal stop displaying modal
-        if(e.target == modalRef.current)
+        if(props.clickOff)
         {
-            modalRef.current.style.display = "none";
+            //if clicking outside of the modal stop displaying modal
+            if(e.target == props.passedRef.current)
+            {
+                //modalRef.current.style.display = "none";
+                props.passedRef.current.style.display = "none";
+            }
         }
     }
 
@@ -24,11 +28,11 @@ export default function Modal(props)
     return (
         <>
             {/*Modal launching button*/}
-            <button onClick={modalOn}>
+            <button className="modalButton" onClick={modalOn}>
                 {props.buttonText}
             </button>
 
-            <div ref={modalRef} className="modalBackground" onClick={modalOff}>
+            <div ref={props.passedRef} className="modalBackground" onClick={modalOff}>
                 <div>
                     {props.children}
                 </div>

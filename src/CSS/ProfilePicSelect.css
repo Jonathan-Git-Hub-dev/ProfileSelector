@@ -20,7 +20,7 @@
     margin: 0px;
     gap: 0px;
     box-sizing: border-box;*/
-    background-color: red;
+    background-color: blue;
 
     overflow: scroll;
 }
@@ -82,6 +82,8 @@
   height: 25px; /* Slider handle height */
   background: #04AA6D; /* Green background */
   cursor: pointer; /* Cursor on hover */
+
+  pointer-events:auto;
 }
 
 .slider::-moz-range-thumb {
@@ -89,4 +91,12 @@
   height: 25px; /* Slider handle height */
   background: #04AA6D; /* Green background */
   cursor: pointer; /* Cursor on hover */
+}
+
+input[type=range] {
+ pointer-events: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+ pointer-events:auto;
 }

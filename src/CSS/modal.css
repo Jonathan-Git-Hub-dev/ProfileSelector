@@ -18,3 +18,13 @@
   justify-content: center;
   align-items: center;
 }
+.modalButton{
+  color: red;
+
+  margin-top: 10px;
+
+  min-height: 3svh;
+  max-height: 3svh;
+  
+  flex-grow: 0;
+}

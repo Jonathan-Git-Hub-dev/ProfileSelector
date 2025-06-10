@@ -1,12 +1,13 @@
 import {useRef, useState, useEffect} from 'react';
 import "../CSS/ProfilePicSelect.css"
-//import logo from '../im2.jpg';//import logo from '../im.avif';
 import Modal from './Modal.js';
 import $ from 'jquery';
 
 export default function ProfilePicSelect(props)
 {
     const focusing = useRef(null);//left distance, right distance scale
+    const childRef = useRef(null);
+    const down = useRef(false);
     //const displaySize = useRef(8);
 
     useEffect(()=>{
@@ -35,13 +36,21 @@ export default function ProfilePicSelect(props)
     });
     const modalHoldImageRef = useRef(null);
 
-    const dominent = useRef(false);
+    const dominent = useRef(false);//props replacable with original
+
+    const originalSize= useRef([0,0]);
 
     //const [slide, setSlide] = useState(20);
     const [image, setImage] = useState(null);
     //const [imageSize, setImageSize] = useState({border: "solid 2px blue"});
     const [sizing, setSizing] = useState({});
 
+    /*function initiate()
+    {
+        document.getElementById("file").click();// get photo
+
+        //display done on change
+    }*/
 
     function getImage()
     {
@@ -50,6 +59,19 @@ export default function ProfilePicSelect(props)
 
     function imageSelected()
     {
+        //check if image selected
+        //console.log( document.getElementById("file").value);
+        if(document.getElementById("file").value == "")
+        {
+            console.log("no data passed in");
+            return;
+        }
+        console.log("goind to do");
+        childRef.current.style.display = "flex";
+        
+
+
+
         //check if changed to relevant data type
       var image = document.getElementById("file").files[0];
 
@@ -69,6 +91,8 @@ export default function ProfilePicSelect(props)
             //alert(image.width);
             //console.log("width: " + image.width + " height: " + image.height);
             //setImageSize([image.width, image.height]);
+            originalSize.current=[image.width, image.height];
+            //document.getElementById("file").value = "";
             
             if(image.width> image.height)
             {
@@ -100,16 +124,31 @@ export default function ProfilePicSelect(props)
         var form_data = new FormData();                  
         form_data.append('file', file_data);
         
-        let ScreenMin = screanSize;
-        
-        //finding position of the circle in the image for later cropping
-        //console.log("Cirlce size: " + ScreenMin * 0.4);
-        //console.log("Distance from top: " + (modalHoldImageRef.current.scrollTop));// - (ScreenMin * 0.1)));
-        //console.log("Distance from left: " + (modalHoldImageRef.current.scrollLeft));// - (ScreenMin * 0.1)));
+        //screen size in percendage
+        let hpx = (modalHoldImageRef.current.scrollHeight - 2 * screanSize());
+        let ourhpx = modalHoldImageRef.current.scrollTop;// + screanSize()*2;
+        let hp = ourhpx/ hpx;
+        let hr = (screanSize()*4)/hpx;
 
-        form_data.append('c', ScreenMin * 4);
-        form_data.append('x', (modalHoldImageRef.current.scrollLeft));
-        form_data.append('y', (modalHoldImageRef.current.scrollTop));
+        let wpx = (modalHoldImageRef.current.scrollWidth - 2 * screanSize());
+        let ourwpx = modalHoldImageRef.current.scrollLeft;// + screanSize()*2;
+        let wp = ourwpx/ wpx;
+        let wr = (screanSize()*4)/wpx;
+
+        console.log(hp)
+        
+        //let wpx = (modalHoldImageRef.current.scrollWitdh - 2 * screanSize());
+
+
+
+        //form_data.append('c', ScreenMin * 4);
+        //form_data.append('x', (modalHoldImageRef.current.scrollLeft));
+        //form_data.append('y', (modalHoldImageRef.current.scrollTop));
+        form_data.append('y_ratio', hp);
+        form_data.append('x_ratio', wp);
+        form_data.append('y_percentage', hr);
+        form_data.append('x_percentage', wr);
+        
         
 
         $.ajax({
@@ -123,10 +162,14 @@ export default function ProfilePicSelect(props)
         })
         .done(function(data)
         {
-            console.log(data);
+            console.log("Succes: " + data);
+            //childRef.current.style.display = "none";
+
         })
         .fail(function(data){
-            console.log("Ajax error:\n" + data);
+            console.log("Error");
+            console.log(data);
+            //childRef.current.style.display = "none";
         });
 
     }
@@ -135,18 +178,8 @@ export default function ProfilePicSelect(props)
     {
         //console.log("doing");
     }
-
-    return (
-        <Modal func={getImage} buttonText="launch modal">
-            <div className="profilePicSelectContent">
-                    <div ref={modalHoldImageRef} className="profilePicSelectHoldImage">
-                        <div className="profilePicSelectCircle"></div>
-                        {image ? <img className="profilePicSelectImageStyle" src={image} style={sizing}></img> : <></>}
-                    </div>
-                    
-                    
-                
-                    <input type="range" defaultValue="1" min="1" max="60" className="slider" id="myRange" onChange={(e)=>{
+    function zoom(e)
+    {
                         //console.log(screanSize());
                         //console.log(e.target.value);
                         let size;
@@ -168,6 +201,7 @@ export default function ProfilePicSelect(props)
                         let c = modalHoldImageRef.current.scrollLeft + screanSize()*2;
                         let d = modalHoldImageRef.current.scrollWidth - screanSize()*2;
 
+
                         focusing.current= [a/b,c/d];
                         //console.log("old height was: " + (modalHoldImageRef.current.scrollHeight - 2 * screanSize()));
                         
@@ -182,10 +216,72 @@ export default function ProfilePicSelect(props)
                             setSizing({minWidth: size2 + "px", maxWidth: size2 + "px"});
                             //setSizing({minWidth: 1000 + "px", maxWidth: 1000 + "px"});
                         }
-                    }}/>
+    }
+       
+    function closeModal()
+    {
+        childRef.current.style.display = "none";
+    }
+
+    return (
+        <Modal func={getImage} passedRef={childRef} displayButton={false} buttonText="Upload profile picture">
+            <div className="profilePicSelectContent">
+                    <div ref={modalHoldImageRef} className="profilePicSelectHoldImage">
+                        <div className="profilePicSelectCircle"></div>
+                        {image ? 
+                            <img className="profilePicSelectImageStyle"
+                                src={image}
+                                style={sizing}
+                                onMouseDown={(e)=> {
+                                    e.preventDefault();
+                                    //console.log("clicked image");
+                                    down.current=true;
+                                }}
+                                onMouseUp={(e)=> {
+                                    e.preventDefault();
+                                    //console.log("clicked image");
+                                    down.current=false;
+                                }}
+                                onMouseLeave={(e)=> {
+                                    e.preventDefault();
+                                    //console.log("clicked image");
+                                    down.current=false;
+                                }}
+                                onMouseMove={(e)=> {
+                                    if(!down.current)
+                                    {
+
+                                        return;
+                                    }
+                                    e.preventDefault();
+                                    let scrolly= modalHoldImageRef.current.scrollTop - e.movementY;
+                                    /*if(scrolly<0)
+                                    {
+                                        scrolly = 0;
+                                    }*/
+                                    modalHoldImageRef.current.scrollTop = scrolly;
+
+                                    let scrollx= modalHoldImageRef.current.scrollLeft - e.movementX;
+                                    /*if(scrollx<0)
+                                    {
+                                        scrollx = 0;
+                                    }*/
+                                    modalHoldImageRef.current.scrollLeft = scrollx;
+
+                                    //console.log("image");
+                                    //down.current=true;
+                                    //console.log(e);
+                                }}
+                            />
+                        : <></>}
+                    </div>
                     
+                    
+                
+                    <input type="range" defaultValue="1" min="1" max="60" className="slider" id="myRange" onChange={zoom}/>
                     
                     <button onClick={saveImage}>php</button>
+                    <button onClick={closeModal}>cancel</button>
                     <input type="file" id="file" onChange={imageSelected} accept="image/jpg, image/jpeg" hidden/>
                         
             </div>
