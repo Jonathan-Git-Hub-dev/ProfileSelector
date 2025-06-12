@@ -1,102 +1,144 @@
-.profilePicSelectContent{
-    min-width: min(80svw, 80svh);
-    max-width: min(80svw, 80svh);
-    min-height: min(80svw, 80svh);
-    max-height: min(80svw, 80svh);
-    background-color: azure;
+* {
+  margin: 0;
+  padding: 0;
+}
+.profilePicSelectFrame{
+  min-width: min(50svw, 50svh);
+  max-width: min(50svw, 50svh);
+  min-height: min(60svw, 60svh);
+  max-height: min(60svw, 60svh);
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.profilePicSelectHoldImage{
-    min-width: min(60svw, 60svh);
-    max-width: min(60svw, 60svh);
-    min-height: min(60svw, 60svh);
-    max-height: min(60svw, 60svh);
-    
-    /*padding: 0px;
-    margin: 0px;
-    gap: 0px;
-    box-sizing: border-box;*/
-    background-color: blue;
+  background-color: white;
+  border-radius: 8px;
 
-    overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.profilePicSelectHoldImage::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
-}
-.profilePicSelectCircle{
+.profilePicSelectImageHold{
+  /*container for user's image*/
   position: absolute;
-  pointer-events: none;/*interact with the elements under*/
-  z-index: 3; /* gray box will be above both green and black box */
-  
+
   min-width: min(40svw, 40svh);
   max-width: min(40svw, 40svh);
   min-height: min(40svw, 40svh);
   max-height: min(40svw, 40svh);
 
-  margin-left: min(10svw, 10svh);
-  margin-top: min(10svw, 10svh);
+  overflow: scroll;
+  border-radius: 5px;
+}
+.profilePicSelectImageHold::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+.profilePicSelectImage{
+  position:absolute;
+}
+.profilePicSelectTargetHold{
+  /*holds retical that frames user's focus on the image*/
+  pointer-events: none;/*non interactable cosmetic element*/
+  min-width: min(40svw, 40svh);
+  max-width: min(40svw, 40svh);
+  min-height: min(40svw, 40svh);
+  max-height: min(40svw, 40svh);
 
-  box-sizing: border-box;
+  position: relative;
+    
+  background-color: none;
+  opacity: 0.5;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.profilePicSelectTargetHold::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+.profilePicSelectTarget{
+  position:absolute;
+  pointer-events: none;/*non interactable cosmetic element*/
+
+  min-width: min(40svw  - 1px, 40svh - 1px);
+  max-width: min(40svw - 1px, 40svh - 1px);
+  min-height: min(40svw - 1px, 40svh - 1px);
+  max-height: min(40svw - 1px, 40svh - 1px);
+
+  /*displays a transperent circle to indicate image focus*/
+  margin-top:  max(-20svw, -20svh);
+  margin-left:  max(-20svw, -20svh);
   border-radius: 50%;
   border-style: solid;
-  border-width: 2px;
-  border-color: blue;
+  border-width: min(20svw, 20svh);
+  border-color: black;
 }
-.profilePicSelectImageStyle{
-  vertical-align:bottom;
+.profilePicSelectInputs{
+  margin-top: 5px;
 
-  margin: min(10svw, 10svh);
+  min-width: min(35svw, 35svh);
+  max-width: min(35svw, 35svh);
 }
 
-.slidecontainer {
-  width: 100%; /* Width of the outside container */
-}
+
+
 
 /* The slider itself */
-.slider {
+.profilePicSelectSlider{
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
-  width: 100%; /* Full-width */
-  height: 25px; /* Specified height */
-  background: #d3d3d3; /* Grey background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-  transition: opacity .2s;
-}
+  width: 100%; 
+  height: 10px;
+  background: lightgrey;
+  
+  border-radius: 5px;
+  opacity: 0.7;
 
-/* Mouse-over effects */
-.slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
+  transition: 0.3s;
 }
-
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider::-webkit-slider-thumb {
+.profilePicSelectSlider:hover {
+  opacity: 1;
+}
+/*slider knob*/
+.profilePicSelectSlider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #04AA6D; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  width: 15px;
+  height: 15px;
+  background: black;
+  border-radius: 50%;
+  
+  cursor: pointer;
 
   pointer-events:auto;
 }
 
-.slider::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  background: #04AA6D; /* Green background */
-  cursor: pointer; /* Cursor on hover */
-}
+/*firefox css*/
+/*.slider::-moz-range-thumb {}*/
 
+/*slider can only be dragged not clicked*/
 input[type=range] {
  pointer-events: none;
 }
-
 input[type=range]::-webkit-slider-thumb {
  pointer-events:auto;
+}
+
+.profilePicSelectButtons{
+  margin-top: 3px;
+  min-width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.profilePicSelectButton{
+  color: black;
+  background-color: lightgrey;
+  border: solid 1px black;
+  border-radius: 3px;
+
+  padding: 2px;
+
+  opacity: 0.7;
+
+  transition: 0.3s;
+}
+.profilePicSelectButton:hover{
+  opacity: 1;
 }

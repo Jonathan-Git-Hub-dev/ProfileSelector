@@ -11,6 +11,10 @@
   max-width: 100svw;
   min-height: 100svh;
   max-height: 100svh;
+
+  margin: 0px;
+  padding: 0px;
+  gap: 0px;
   
   background-color: rgba(0,0,0,0.4);
 
@@ -19,7 +23,12 @@
   align-items: center;
 }
 .modalButton{
-  color: red;
+  color: black;
+  background-color: lightgrey;
+  border: solid 1px black;
+  border-radius: 3px;
+
+  padding: 2px;
 
   margin-top: 10px;
 

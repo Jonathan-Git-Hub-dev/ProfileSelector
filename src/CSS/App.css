@@ -10,7 +10,11 @@ html, body {
   min-height: 100svh;
   max-height: 100svh;
 
+  margin: 0px;
+  padding: 0px;
+  gap: 0px;
+
   display: flex;
   justify-content: center;
-  background-color: aquamarine;
+  background-color: cornflowerblue;
 }

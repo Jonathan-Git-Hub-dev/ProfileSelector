@@ -47,6 +47,18 @@ $x_start = $_POST['x_ratio'];
 $y_percentage = $_POST['y_percentage'];//percentage of the height of the image that new image uses
 $x_percentage = $_POST['x_percentage'];
 
+//start cannot be after image
+if($y_start >= 100 || $x_start >= 100)
+{
+  header('HTTP/1.1 500 Vairiable format error');
+  return;
+}
+//final image has to have some dimensions
+if($y_percentage <= 0|| $x_percentage <= 0)
+{
+  header('HTTP/1.1 500 Vairiable format error');
+  return;
+}
 //makeing sure crop values make sense (connot have more than 100%)
 if($y_start + $y_percentage > 100 || $x_start + $x_percentage > 100)
 {

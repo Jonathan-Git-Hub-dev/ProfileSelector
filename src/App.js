@@ -8,4 +8,3 @@ export default function App() {
     </div>
   );
 }
-//onClick={()=>{console.log("div click");}}
