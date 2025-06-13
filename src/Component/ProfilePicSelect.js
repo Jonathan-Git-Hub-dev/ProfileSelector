@@ -12,7 +12,7 @@ export default function ProfilePicSelect(props)
     const down = useRef(false);//tracks if user is dragging the image
     const range = useRef(null);//input slider for image size
     const modalHoldImageRef = useRef(null);//pointer to div holding image
-    const inputImage = useRef(null);
+    const inputImage = useRef(null);//file input
     const originalSize= useRef([0,0]);//holds the original size of the image (before zoom applied)
 
     const [image, setImage] = useState(null);//inage user choose as profile picture
@@ -23,7 +23,7 @@ export default function ProfilePicSelect(props)
         //focusing on certain part of image on every rerender
         if(focusing.current == null)//first rerender so focus on center
         {
-            //console.log("doing initial focus");
+            console.log("doing initial focus");
             modalHoldImageRef.current.scrollTop = (modalHoldImageRef.current.scrollHeight - modalHoldImageRef.current.clientHeight) / 2;
             modalHoldImageRef.current.scrollLeft = (modalHoldImageRef.current.scrollWidth - modalHoldImageRef.current.clientWidth) / 2;
         }
@@ -70,12 +70,36 @@ export default function ProfilePicSelect(props)
         }
     }
 
-    function scrnche()
+    function zoom()
     {
-        console.log("changed please remove later");
-        //image needs to be resized
+        //find where user has focus image for refocusing after zoom             
+        let focus_y_px = modalHoldImageRef.current.scrollTop+ screanSize()*2;
+        let y_px = modalHoldImageRef.current.scrollHeight;
+        let focus_x_px = modalHoldImageRef.current.scrollLeft + screanSize()*2;
+        let x_px = modalHoldImageRef.current.scrollWidth;// - screanSize()*2;
+
+        focusing.current= [focus_y_px / y_px, focus_x_px / x_px];
+                              
+        //calculate new size 
         resizeImage();
     }
+
+    function handleScreenResize()//when screen resizes resize image
+    {
+        if(childRef.current.style.display == "flex")
+        {
+            range.current.value = 1;
+            focusing.current = null;
+            resizeImage();
+        }
+    }
+
+    useEffect(()=>{
+        window.addEventListener('resize', handleScreenResize);
+        return () => {
+           window.removeEventListener('resize', handleScreenResize);
+         };
+    },[])
 
     function imageSelected()
     {
@@ -89,10 +113,6 @@ export default function ProfilePicSelect(props)
         //display editing screen
         childRef.current.style.display = "flex";
 
-        
-        console.log("setting up change");
-        window.addEventListener("resize", scrnche);
-        
         //load image
         var image = inputImage.current.files[0];
         var reader = new FileReader();
@@ -141,11 +161,6 @@ export default function ProfilePicSelect(props)
         childRef.current.style.display = "none";
         range.current.value = 1;
         document.getElementById("file").value = "";
-
-        //removing
-        console.log("removing chage event listener");
-        window.removeEventListener("resize", scrnche);
-        console.log("removing chage event listener2");
     }
 
     function saveImage()//send image to backend
@@ -190,19 +205,7 @@ export default function ProfilePicSelect(props)
 
     }
 
-    function zoom()
-    {
-        //find where user has focus image for refocusing after zoom             
-        let focus_y_px = modalHoldImageRef.current.scrollTop+ screanSize()*2;
-        let y_px = modalHoldImageRef.current.scrollHeight;
-        let focus_x_px = modalHoldImageRef.current.scrollLeft + screanSize()*2;
-        let x_px = modalHoldImageRef.current.scrollWidth;// - screanSize()*2;
 
-        focusing.current= [focus_y_px / y_px, focus_x_px / x_px];
-                              
-        //calculate new size 
-        resizeImage();
-    }
 
     //tracks dragging on image to scroll
     function mouseDownFunc(e)
@@ -258,8 +261,8 @@ export default function ProfilePicSelect(props)
                 <div className="profilePicSelectInputs">        
                     <input type="range" defaultValue="1" min="1" max="60" className="profilePicSelectSlider" ref={range} onChange={zoom}/>
                     <div className="profilePicSelectButtons">            
-                        <button className="profilePicSelectButton" onClick={saveImage}>php</button>
-                        <button className="profilePicSelectButton" onClick={closeModal}>cancel</button>
+                        <button className="profilePicSelectButton" onClick={saveImage}>Confirm</button>
+                        <button className="profilePicSelectButton" onClick={closeModal}>Cancel</button>
                     </div>             
                 </div>                             
             </div>

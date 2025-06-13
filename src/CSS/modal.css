@@ -1,12 +1,11 @@
 .modalBackground{
-  display: none; /* Hidden by default */
+  display: none; /*when modal is on, turn dispaly to flex*/
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top may need to set higher if z 1 in use*/
+  z-index: 1;
   
   left: 0;
   top: 0;
 
-  /*size of screen*/
   min-width: 100svw;
   max-width: 100svw;
   min-height: 100svh;
@@ -18,7 +17,6 @@
   
   background-color: rgba(0,0,0,0.4);
 
-  /*when modal is shown by turn dispaly to flex*/
   justify-content: center;
   align-items: center;
 }
@@ -28,7 +26,7 @@
   border: solid 1px black;
   border-radius: 3px;
 
-  padding: 2px;
+  padding: 10px;
 
   margin-top: 10px;
 
@@ -36,4 +34,7 @@
   max-height: 3svh;
   
   flex-grow: 0;
+
+  display:flex;
+  align-items: center;
 }

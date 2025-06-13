@@ -1,24 +1,18 @@
-import {useRef} from 'react';
 import "../CSS/Modal.css"
 
 export default function Modal(props)
 {
-    //const modalRef = useRef(null);
-
     function modalOn()
     {
         props.func();
-       //modalRef.current.style.display = "flex";
     }
 
     function modalOff(e)
     {
         if(props.clickOff)
-        {
-            //if clicking outside of the modal stop displaying modal
+        {//if clicking outside of the modal stop displaying modal when clickOff flag on
             if(e.target == props.passedRef.current)
             {
-                //modalRef.current.style.display = "none";
                 props.passedRef.current.style.display = "none";
             }
         }
@@ -32,6 +26,7 @@ export default function Modal(props)
                 {props.buttonText}
             </button>
 
+            {/*Modal content*/}
             <div ref={props.passedRef} className="modalBackground" onClick={modalOff}>
                 <div>
                     {props.children}
